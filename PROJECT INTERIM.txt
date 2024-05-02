@@ -1,0 +1,48 @@
+CREATE VPC
+--FIRST WE HAVE TO CREATE VPC Group5-vpc with IPv4 CIDR=10.0.0.0/16 
+--Subnet name Group5-subnet
+  Assign Availability Zone
+  Assign IPv4 subnet CIDR =10.0.1.0/24
+--edit vpc settings and enable DNS hostname
+--Edit subnet settings -eneble auto assign public IPv4 address
+--craete internet gateway - Group5-gateway
+--attach vpc to internet gateway
+--create route table-Group5-route
+--Edit route add and we have to add route to our internet gateway
+
+CREATE IAM ROLE 
+--GO TO ROLES THEN CREATE IAM ROLE----AWS SERVICE-----SELECT REDSHIFT IN SERVICE OR USE CASE
+  Permissions policies- SELECT AMAZON S3 FULL ACCESS
+  Give a role name then create role
+
+
+CRAETE S3 BUCKET
+--choose the region
+--BUCKET NAME-group5-bucket AND UPLOAD FILE AND ENABLE PUBLIC ACCESS
+
+CRAETE REDSHIFT CLUSTER
+--create cluster
+--choose node-dc2Large
+--give username (awsuser)and password (Group5aws)
+--associate IAM rule
+--network and security---select vpc---vpc security group(default) ----craete subnet group
+choose d2-large---give username and password
+--REDSHIFT-CLUSTER-GROUP-5-1
+--USER NAME=group-5-user1
+     password Group-5-pwd
+--set iam role in redshift cluster
+--connect query editor v2
+--goto load data-----choose s3--------choose location---------CHOOSE SCHEMA AS PUBLIC----- CHOOSE TABLE NAME----CHOOSE IAM RULE
+
+create ec2 instance
+--create a instance and then connect it to ssh client and copy the command
+-- go to cmd and then go to downloads and paste the command
+
+
+connection with database
+--Temporary credentials using a database user name
+--load the data 
+--run query
+	
+
+group-5-quicksight

@@ -1,0 +1,45 @@
+RDS(RELATIONAL DATABASE SERVICE)
+--its a paas service
+--it is relational database managed by aws 
+--it runs on ec2 instances so you can choose an instance type .
+--rds supports some db engines like MySQL,MariaDB,Oracle,Microsoft SQL Server,Amazon Aurora
+-------------------------------------------------------------------------------------------------------------------------------
+KEY FEATURE OF RDS
+--DB instance is a separate environment in the cloud. 
+  You can run one or more DB instances and each DB instance supports one or more databases and database schema depends upon engine type
+--DB Cluster is a collection of databases maintained by the instance or running DB server for connecting a database.
+--Maintenance Window in RDS is periodically to fix all issues of security and reliability in both hardware and software.
+  It occurs once per week we may do it in a specific time period or schedule period
+--Multi-AZ deployments can have one standby or two standby DB instances. 
+  In Multi-AZ the primary instance is created in one zone and the standby instance (secondary instance) is created in another zone. 
+  The data in the primary instance is replicated to the standby instance synchronously to avoid failover. Read Replica is the snapshot of the primary DB.
+
+
+scalability
+--ability to add more resources assigned to the cloud services to service increase in demand , such as scaling up and down
+--scalinging up means adding more resources to the existing resources.(scaling vertically)
+--scaling out means adding new resources parallel to axisting resource.(scalling horizontally) 
+--it will happen for a long period of time
+
+autoscaling
+--it is the service that we can use to automatically launch and terminate instances on a dynamic basis based on demand.
+
+
+elasticity
+--ability to gain or reduce resources such as cpu processing,ram,network etc on demand without causing system purformance disruption.
+--happen for a shorter period of time
+
+load balancing
+--process to distribute incoming application traffic accross multiple targets. Such as EC2 instances,containers or ip addresses
+--benefits-1.high availability
+          -2.fault toralance
+          -3.optimal performance
+--two types 
+  1. network lb(layer 4)
+  2.application lb(layer 7)-supports path based routing
+  3.classic lb-depricated lb(layes 4 and 7)
+                   host based routing
+                   source ip based routing
+
+
+sticky session-

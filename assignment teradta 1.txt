@@ -1,0 +1,28 @@
+create database tera from dbc as perm = 3000000;
+create table tera.employee
+(
+Empid integer,
+EmpName varchar(20),
+Location varchar(20),
+Salary integer
+);
+
+insert into tera.employee(1,Robin,Chicago,50000);
+insert into tera.employee(2,Sarah,New York,30000);
+insert into tera.employee(3,Tom,Chicago,60000);
+insert into tera.employee(4,Wills,Chicago,40000);
+insert into tera.employee(7,Trex,New York,45000);
+insert into tera.employee(8,Jess,Michigan,60000);
+
+
+select  * from from tera.employee
+where salary =(select max(Salary) from tera.employee);
+
+select  * from from tera.employee
+where salary =(select min(Salary) from tera.employee);
+
+select  * from from tera.employee
+where salary =(select max(Salary) from tera.employee
+where salary!=(select max(Salary) from tera.employee));
+
+

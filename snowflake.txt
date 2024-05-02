@@ -1,0 +1,204 @@
+snowflake
+--its a paas service(running on cloud only)
+--doed not run on the top of a database technology
+--Snowflake provides all functionalities of an analytical database so its a olap 
+--SF is hosted by AWS,GCP,AZURE 
+--There is no hardware neither virtual nor physical to select, install, configure or manage from client side.
+--There is no software to install, configure or manage to access it.
+--All ongoing maintenance, management, upgrades and patching are owned by Snowflake itself.
+
+-----------------------------------------------------------------------------------------------------------------------------------
+SF architechture-SF is hybrid of shared disk and shared nothing architecture
+--its a three layes architechture
+Database Storage--(hybrid columner storage)--It will reorganize the data into internally optimize,compressed and then convert tha data into 
+                   columner format.
+                   --SF manages all the aspects of how the data will store .
+                   --Snowflake stores data as data objects and users can't see or access them directly
+
+
+Query Processing--muscle of the system-performs mpp--its going to process the queries
+                --query executing is happen in this layer with the help of virtual warehouses
+                --While executing a query, Snowflake analyzes the requested query and uses the latest micro-partitions and 
+                  evaluates caching at different stages to increase performance and decrease the time for bringing the data.
+                  Decrease the time means less credit is used of a user.
+
+
+Cloud Services--brain of the system -managing access controll, infrustructure,security , optimizier metadata etc.
+              --its a layer of collection of services that coordinate multiple activities across SF.
+              --like -authentication
+                     -infrastructure management
+                     -metadata management
+                     -query parsing and execution
+                     -optimization
+                     -access control
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+Virtual Warehouses--is used for reporting and data analysis
+--each VWH is called as MPP Compute cluster,which is composed of multiple compute nodes.
+--they are completely allocated by SF that is cloud provider.
+--Each VWH has no impact on other VWH. Each VWH is independent. They do not share any of the virtual computing resources with each other. 
+  so it is called shared nothing architecture.
+--VWH are scalable i.e they can resize the wh to accomoded the need of more execution
+--the size of wh specifies the amount of compute resources avalable in cluster
+--there are various wh sizes avalable 	
+  xs-1 credit/hour
+  s-2 credit/hour
+  m-4 credit/hour
+  l-8 credit/hour
+  xl-16 credit/hour
+  2xl-32 credit/hour
+  3xl-64 credit/hour
+  4xl-128 credit/hour
+  5l-256 credit/hour
+  6xl-512 credit/hour
+--two types of VWH
+  1.standard VWH
+  2.Snowpark optimized VWH-Snowpark workloads can be run on both Standard and Snowpark-optimized warehouses. 
+                           Snowpark-optimized warehouses are recommended for workloads that have large memory requirements
+                           such as ML training use cases
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Access control-who can access and perform operations on objects in SF
+--two aspectsb of access control combined
+1.DAC-Discretionary access control-each object has an owner who can grant access to that onject
+2.Role-based access control-access-priviledges are assigned to roles,which are in turn assigned to users.
+
+--key concepts of access control
+  -role-entity to which priviledges are granted.Role can be assigned to the user as well as another role.
+  -user-people or system recognized by sf
+  -priviledge-it defined level of access to an object (select ,drop, create etc)
+  -securable object-its the object to which priviledges can be grabted.(database,table,warehouses etc)
+
+
+types of roles-
+1.account admin-sys admin and security admin .its the top level role in the system.it manage and view all objects
+2.security admin-user admin role is granted to security admin
+3.sys admin-create warehouses and databases and more objects
+4.user admin-create to user and role
+5.public-automacally granted to every user
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+Stages:
+its nothing but the location where datafiles arestored or staged whuch helps in loading the data in and unloading the data out from table.
+--can be two type
+1.Internal Stage-store the data internally into the SF
+                -can be either permanent or temperary
+                -3 types of internal stage
+                   1.table-this is created for user  in SF.
+                           to store the files which are staged or managed by multiple user but data is loaded in single table
+                           cant be altered or dropped
+                   2.named-its a database object created in a schema.
+                           prefered for the file which are managed by multiple user and data is loaded in multiple table
+                   3.user -allocated to each user to storing the files
+                           designed to store the file that is managed by single user but can be loaded in multiple tables
+                           cant be altered or dropped
+
+2.External Stage-store the data in external location like s3 bucket ,azure container, gcp cloud storage
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------
+Micropartition
+--all data in Sf will automatically divided into micropartition
+--each micropartition contain data between 50 mb to 500 mb
+--uncompressed data
+--group of rows in table will be map into individual micropartition.Then the data will arranged in columner format.
+--this concept allow more granularity.
+--sf stored metadata about all the records stored in the micropartition.
+
+benefits
+--small in size so it will handle DML operations efficiently
+--faster query execution
+--columns are also compressed indivisually within the micropartition
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+Tables:
+Permanent table-its the default table where user store the data
+Temporary table-this table store the data that does not use to be maintain for external period of time
+               --it store trasitory data(etl data,session specific data)
+               --this table will be created within the session and once the session is completed the table will drop.
+               --this table is not visible by other user and other session
+Transient table--this is similar to perm table but they dont have the failsave period.
+                --is stores the transitort data that needs to be maintain beyond each session
+External table--its a sf feature that allows to query the data that stored in external stage
+              --its a read only table -
+              --cant perform DML(use for join operation only)
+              --its a little bit slower as it stores the data in external stage.
+
+Hybrid table-optimized for hybrid transactional and operational workloads that requires low letency and high throughput.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+views-virtual table 
+Sf supports two types of views
+1.Non-materialized views (usually simply referred to as “views”)
+2.Materialized views:materialized views have some restrictions that non-materialized views do not have
+3.secure view:Both non-materialized and materialized views can be defined as secure.It gives data privecy and data sharing
+
+limitation of views:we cant perform ddl 
+                    read only
+                    when you drop some column in view it became refreashed and it became invalid.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+DATA LOADING:copy into table- to bulk and continuous data loading by snowpipe feature
+
+--BULK LOADOING USING COPY COMMAND:
+  
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+TIME TRAVELING:
+--SF time traveling enables accessing historical data at any point within a defined period.
+-- It serves as a powerful tool for performing the following tasks:
+
+-Restoring data-related objects (tables, schemas, and databases) that might have been accidentally or intentionally deleted can restore.
+-Query data in the past that has since been updated or deleted.
+-create clones of entire tables, schemas, and databases at or before specific points in the past.
+-Restore tables, schemas, and databases that have been dropped.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+RETAINTION PERIOD:
+When data in a table is modified, including deletion of data or dropping an object containing data, 
+Snowflake preserves the state of the data before the update. 
+The data retention period specifies the number of days for which this historical data is preserved 
+and, therefore, Time Travel operations (SELECT, CREATE … CLONE, UNDROP) can be performed on the data.
+
+For standard edition retaintion period is for 0 to 1 day
+For enterprised edition Its upto 0 to 90 days 
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+FAILSAF	
+Fail-safe provides a (non-configurable) 7-day period during which historical data may be recoverable by Snowflake.
+This period starts immediately after the Time Travel retention period ends.
+
+For transient table -0 day
+For perm table-7 days 
+it takes several days and hours to recover the data
+it provides 7 days period during this sf can recover the data.
+no user operation is allowed in SF.
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+CACHING MECHANISM:
+It is the mechanism to maximize the utilizing of snowflake capabilities
+--to save memory and speed result
+--three types of cache
+1.metadata cache:holds onject information and statistics
+2.result cache: holds result for 24 hours.so if another person runs some query he will get result
+3.warehouse cache:hols the data'local' as long as warehouse is running
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Different edition of SF:
+1.standard edition
+2.Enterprise edition
+3.Business critical edition
+4.virtual private edition
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+Zero copy cloning:
+it clone the database,tables,schema without replicate the actual data.

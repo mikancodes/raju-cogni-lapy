@@ -1,0 +1,128 @@
+S3(SIMPLE STORAGE SERVICE)
+--ITS A PAAS SERVICE
+--ITS A GLOBAL SERVICE 
+--OBJECT ORIENTED STORAGE SERVICE
+--ITS A COST EFICIENT STORAGE CLASS
+--ENHANCE THE PERFORMANCE, SCALIBILITY,AVALIBILITY AND DURABILITY
+----------------------------------------------------------------------------------------------------------------------------------
+BUCKET
+--BUCKET IS STORAGE PLACE WHERE WE CAN DUMB OUR RELATED OBJECT
+--S3 IS GLOBAL BUT BUCKETS ARE REGIONAL SERVICE
+--VOLUME LIMIT OF BUCKET STORAGE IS UNLIMITED
+-------------------------------------------------------------------------------------------------------------------------------------
+RULES FOR BUCKET NAME
+--CAN BE MIN 3 CHAR AND MAX 63 CHAR
+--CAN CONTAIN ONLY LOWER CASE LETTERS ,NUMBERS, DOTS,HYPHEN 
+--MUST BEGIN AND END WITH A NUMBER OR A LETTER
+--DOES NOT ACCEPT 2 ADJACENT PERIOD
+--ARE GLOBALLY UBIQUE
+--MUST NOT RESEMBLE AN IP ADDRESS
+---------------------------------------------------------------------------------------------------------------------------
+OBJECTS
+--An object consists of a file and optionally any metadata that describes that file.
+  To store an object in Amazon S3, you upload the file you want to store to a bucket.
+  When you upload a file, you can set permissions on the object and any metadata.
+--MAXIMUM SIZE OF OBJECT IS 5 TB 
+--IF ITS GREATER THAN 5 TB THEN WE HAVE TO GO FOR MULTIPATH UPLOAD
+-- EACH OBJECT GETS  ONE UNIQUE URL TO ACCESS AND IT WILL GET AN PERMISSION AT EACH
+---------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------
+S3 STORAGE CLASS
+
+--Amazon S3 Standard:
+  Purpose: Frequently accessed data.
+  Features: High durability, availability, and performance. Suitable for cloud applications, dynamic websites,
+            content distribution, mobile apps, gaming, and big data analytics.
+  Durability: Exceeds 99.999999999% (11 nines) data durability.
+  Redundancy: Data stored redundantly across a minimum of 3 Availability Zones by default.
+  Lifecycle Management: Supports automatic transitions to other storage classes without application changes
+
+
+--Amazon S3 Intelligent-Tiering:
+  Purpose: Optimized for data with unknown access patterns.
+  Behavior: Automatically moves data between frequent and infrequent access tiers2.
+
+
+--Amazon S3 Standard-Infrequent Access (S3 Standard-IA):
+  Purpose: Cost-effective storage for less frequently accessed data.
+  Ideal For: Data that doesn’t require immediate access but needs to be available when needed1.
+
+
+--Amazon S3 One Zone-Infrequent Access (S3 One Zone-IA):
+  Purpose: Similar to S3 Standard-IA but stores data in a single Availability Zone.
+  Consideration: Less resilient than multi-AZ storage classes
+
+--Amazon S3 Glacier Instant Retrieval:
+  Purpose: Archive data with immediate access requirements.
+  Retrieval: Provides fast retrieval times for archived data1.
+
+
+--Amazon S3 Glacier Flexible Retrieval (formerly S3 Glacier):
+  Purpose: Rarely accessed long-term data.
+  Retrieval: Retrieval times are longer but suitable for data not requiring immediate access1.
+
+
+--Amazon S3 Glacier Deep Archive (S3 Glacier Deep Archive):
+  Purpose: Long-term archive and digital preservation.
+  Retrieval: Retrieval in hours at the lowest cost storage in the cloud1.
+
+Remember that you can configure storage classes at the object level, 
+and a single bucket can contain objects stored across all storage classes except S3 Express One Zone. 
+Additionally, S3 provides the most durable storage in the cloud, ensuring data resilience and redundancy1.
+
+If you have specific business needs or cost considerations, choosing the right storage class can significantly impact your AWS S3 experience.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+LIFECYCLE--
+--The use of a lifecycle policy in Amazon S3 is to automate the management of objects within your S3 buckets over their entire lifecycle. 
+  A lifecycle policy defines how objects transition between different storage classes and when they should be deleted.
+--IT REFETRS TO THE AUTOMATED PROCESS OF MANAGING OBJECT STORED IN S3 BUCKETS OVER THE LIFECYCLE.
+  THIS INCLUDES TRANSITIONING OBJECTS BETWEEN DIFFRENT STORAGE CLASSES AS WELL AS EXPIRATION OF OBJECTS AFTER  A SPECIFIC PERIOD.
+
+------------------------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+BUCKET POLICY-
+--BUCKET POLICY IN S3 IS JSON-BASED POLICY DOCUMENT THAT DEFINES PERMISSION FOR AN S3 BUCKET
+--IT ALLOWS YOU TO CONTROL ACCESS TO YOUR BUCKER AT A BUCKET LEVEL
+--IT SPECIFY WHO CAN ACCESS THE BUCKET AND WHAT ACTIONS THEY CAN PERFORM 
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+VERSIONING--
+--Versioning in Amazon S3 is a means of keeping multiple variants of an object in the same bucket.
+  You can use the S3 Versioning feature to preserve, retrieve, and restore every version of every object stored in your buckets. 
+  Versioning-enabled buckets can help you recover objects from accidental deletion or overwrite
+--EXAMPLE-If you delete an object, instead of removing the object permanently, Amazon S3 inserts a delete marker,
+          which becomes the current object version.You can then restore the previous version. 
+          For more information, see Deleting object versions from a versioning-enabled bucket.
+
+          --If you overwrite an object, Amazon S3 adds a new object version in the bucket. 
+          The previous version remains in the bucket and becomes a noncurrent version. 
+          You can restore the previous version.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+REPLICATION--
+--Replication enables automatic, asynchronous copying of objects across Amazon S3 buckets. 
+  Buckets that are configured for object replication can be owned by the same AWS account or by different accounts.
+  You can replicate objects to a single destination bucket or to multiple destination buckets.
+  The destination buckets can be in different AWS Regions or within the same Region as the source bucket.
+--S3 Cross-Region Replication (CRR) is used to copy objects across Amazon S3 buckets in different AWS Regions. 
+--if the data server got slow in any region so replication is useful because you can replicate objects to another region 
+  so that we can get access of the data
+
+--------------------------------------------------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------------------
+ACL(ACCESS CONTROL LIST)
+--USED TO CONTROL ACCESS TO S3 BUCKETS AND OBJECTS
+-- Each bucket and object has an ACL attached to it as a subresource. 
+   It defines which AWS accounts or groups are granted access and the type of access. When a request is received against a resource,
+   Amazon S3 checks the corresponding ACL to verify that the requester has the necessary access permissions.
+-- it defines the which group or account is granted access and defining the type of access , it can be given to an aws account or group 
+-- 

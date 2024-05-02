@@ -1,0 +1,6 @@
+DynamoDB
+--A typr of non-relational or NOSQL database
+--it is a no SQL, key value type db
+--offers seamless, horizontal scaling
+--With DynamoDB, you can create database tables that can store and retrieve any amount of data and serve any level of request traffic. 
+  You can scale up or scale down your tables' throughput capacity without downtime 

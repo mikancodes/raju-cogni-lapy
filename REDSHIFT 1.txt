@@ -1,0 +1,51 @@
+REDSHIFT:
+--ITS A CLOUD DATA WAREHOUSING TOOL AVAILABLE IN AWS.
+--IT MANAGES ALL THE WORK OF SETTING UP, OPERATING AND SCALING A DATA WAREHOUSE
+--ITS ASSIGN TO HANDLE LARGE SCALE DATA ANALYTICS WORKLOADS, MAMKING IT EASY TO ANALYSE DATA USING STANDARD SQL QUERIES
+--IT USES COLUMNER STORAGE TECHNOLOGY AND MPP TO DELIVER FAST QUERY PERFORMANCE ON LARGE DATA
+--ITS A PAAS SERVICE(ONLY AVAILABLE IN AWS)
+--ITS BASED ON A PARALLEL COMPUTING MODEL(MPP)
+
+-----------------------------------------------------------------------------------------------------------------------------
+COMPONENTS OF REDSHIFT ARCHITECHTURE
+//CLUSTER
+--THE CORE INFRUSTRUCTURE COMPONENT OF AN REDSHIFT IS CULSTER
+--REDSHIFT CLUSTER IS  COMBINATION OF LEADER NODE AND COMPUTE NODE AND NODE SLICES
+--IT REFERS TO COLLECTION OF COMPUTING RESOURCES THAT WORK TOGETHER TO STORE & PROCESS DATA
+--IT CONSISTS OF ONE OR MORE COMPUTE NODES, EACH EQUIPPED WITH CPU,MEMORY AND STORAGE
+--THE DATA IN CLUSTER IS DISTRIBUTED ACROSS THESE COMPUTE NODES ALLOWING FOR PARALLEL PROCESSING OF QUERIES TO ACHIEVE HIGH PERFORMANCE
+ 
+//LEADER NODE
+--CONTROLED AND MANAGED BY AMAZON
+--Leader node interacts with client applications and communicates with compute nodes to carry out operations. 
+--It parses and generates an execution plan to carry out database operations. 
+--Based on execution plan, then it compiles the code. 
+  Then compiled code is distributed to all  compute nodes and its data portion to each node.
+
+//COMPUTE NODE-
+--ALL YOUR JOB WILL HAPPNED IN DISTRIBUTED MANNER
+-- Leader node compile each step of execution plan and assign that to all compute nodes. 
+ --  Compute nodes carry out execution of the given compiled code and send back intermediate results back to leader node to
+   aggregate the final result for each request from client application.
+--Each compute node has its own dedicated CPU, memory and storage which are essentially determined by node type.
+
+//NODE SLICE
+--NOTHING BUT PROCESS
+--A COMPUTE NODE IS PARTITIONED INTO SLICES.
+--Each slice is allocated a portion of node’s memory, disk space where it carries out the given workload to the node
+-- Leader node manages distributing data to slices for any queries or other database operations to the slices. 
+--All slices work in parallel to complete the operation. The number of slices are determined by node size of the cluster.
+---------------------------------------------------------------------------------------------------------------------------------------
+**DENSE STORAGE NODES-LOTS OF STORAGE AND COMPUTE POERT LESS
+**DENCE COMPUTE NODES-MORE COMPUTE POWER AND LESS STORAGE POWER
+ 
+**IN SINGLE NODE CLUSTER THERE IS NO LEADER NODE .HERE LEADER AND COMPUTE NODE SHARE THE SAME RESOURCES.
+ 
+----------------------------------------------------------
+KEY FEATURE OF AMAZON REDSHIFT--
+--MASSIVELY PARALLEL PROCESSING
+--COLUMNER DATA STORAGE
+--DATA COMPRESSION
+--QUERY OPTIMIZER
+--RESULT CATCHING
+--COMPILED CODE

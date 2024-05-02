@@ -1,0 +1,23 @@
+ec2 service provides by aws, when you can rent multiple servers that is called instances.
+--its a iaas  service
+--where you can run application
+--its scalable
+--pay as you go
+--eneble user to scale on demand
+
+key feature
+--instance type-1.memory optimized
+                2.compute optize
+
+--scalability
+--ami
+--security group-controling inbound and outbound roles
+--iam role-control the resources
+--
+
+
+route table
+acl-subnet level and stateless
+
+
+iam role and user

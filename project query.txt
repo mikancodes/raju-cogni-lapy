@@ -1,0 +1,28 @@
+2.fetch the sales terget , customer satisfaction ratings, and productivity.
+
+select EmployeeID,Name,SalesTarget,CustomerSatisfactionScore,OverallPerformanceScore
+from employee_performance_data 
+where Department= Sales
+order by EmployeeID;
+
+3.Identify top-performing employees by analyzing performance metrics and 
+comparing them to predefined targets or benchmarks.
+
+select * from employee_performance_data 
+where Department= Sales
+and
+ProjectCompletionRate>80
+order by EmployeeID;
+
+
+4.count total number of employees from sales depertment
+
+
+select EmployeeID,Name,avg(Salary)
+from emp
+group by EmployeeID,Name
+order by EmployeeID;
+
+
+4.Identify areas for improvement by analyzing performance gaps and 
+providing targeted training or support.
